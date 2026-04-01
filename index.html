@@ -1,0 +1,3014 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>SkyAura-Travel — Premium Journeys</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@300;400;500;600;700;800&family=Syne:wght@600;700;800&display=swap" rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css" rel="stylesheet">
+
+  <style>
+    :root{
+      --bg:#07111f;
+      --bg-2:#0b1728;
+      --panel:#0f1c30;
+      --panel-2:#13243d;
+      --panel-3:#162b48;
+      --text:#f6f8fc;
+      --muted:#9fb0c9;
+      --line:rgba(255,255,255,.08);
+      --primary:#7a7fff;
+      --primary-2:#5dbdfd;
+      --accent:#22d3ee;
+      --success:#10b981;
+      --warning:#f59e0b;
+      --danger:#ef4444;
+      --shadow:0 22px 60px rgba(0,0,0,.32);
+      --radius:28px;
+      --radius-sm:18px;
+      --container:min(1240px, calc(100% - 28px));
+    }
+
+    body.light{
+      --bg:#f5f7fc;
+      --bg-2:#edf2fb;
+      --panel:#ffffff;
+      --panel-2:#f7faff;
+      --panel-3:#eef4ff;
+      --text:#111b2d;
+      --muted:#6b7a92;
+      --line:rgba(17,27,45,.08);
+      --shadow:0 18px 50px rgba(36,48,75,.10);
+    }
+
+    *{margin:0;padding:0;box-sizing:border-box}
+    html{scroll-behavior:smooth}
+    body{
+      font-family:'Manrope',sans-serif;
+      background:
+        radial-gradient(circle at top left, rgba(122,127,255,.18), transparent 22%),
+        radial-gradient(circle at top right, rgba(34,211,238,.12), transparent 18%),
+        linear-gradient(180deg, var(--bg), var(--bg-2));
+      color:var(--text);
+      overflow-x:hidden;
+      transition:background .35s ease, color .35s ease;
+    }
+
+    img{display:block;max-width:100%}
+    a{text-decoration:none;color:inherit}
+    button,input,select,textarea{font-family:inherit}
+    .container{width:var(--container);margin:auto}
+
+    .card{
+      background:linear-gradient(180deg,var(--panel),var(--panel-2));
+      border:1px solid var(--line);
+      box-shadow:var(--shadow);
+      border-radius:var(--radius);
+    }
+
+    .btn{
+      border:none;
+      cursor:pointer;
+      display:inline-flex;
+      align-items:center;
+      justify-content:center;
+      gap:10px;
+      font-weight:800;
+      transition:.28s ease;
+      text-decoration:none;
+    }
+
+    .btn-primary{
+      padding:15px 24px;
+      border-radius:999px;
+      color:#fff;
+      background:linear-gradient(135deg,var(--primary),var(--primary-2));
+      box-shadow:0 16px 34px rgba(93,189,253,.18);
+    }
+
+    .btn-primary:hover{transform:translateY(-2px)}
+
+    .btn-secondary{
+      padding:15px 22px;
+      border-radius:999px;
+      color:var(--text);
+      border:1px solid var(--line);
+      background:rgba(255,255,255,.04);
+      backdrop-filter:blur(14px);
+    }
+
+    .btn-secondary:hover{
+      transform:translateY(-2px);
+      background:rgba(255,255,255,.08);
+    }
+
+    .icon-btn{
+      width:46px;
+      height:46px;
+      border:none;
+      border-radius:50%;
+      background:rgba(255,255,255,.05);
+      color:var(--text);
+      border:1px solid var(--line);
+      display:inline-flex;
+      align-items:center;
+      justify-content:center;
+      cursor:pointer;
+      position:relative;
+      transition:.28s ease;
+    }
+
+    .icon-btn:hover{
+      transform:translateY(-2px);
+      background:rgba(255,255,255,.10);
+    }
+
+    .count{
+      position:absolute;
+      top:-4px;
+      right:-2px;
+      width:20px;
+      height:20px;
+      border-radius:50%;
+      background:linear-gradient(135deg,var(--primary),var(--accent));
+      color:#fff;
+      font-size:11px;
+      font-weight:800;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+    }
+
+    .section{
+      padding:90px 0;
+      position:relative;
+    }
+
+    .section-label{
+      display:inline-flex;
+      align-items:center;
+      gap:10px;
+      padding:8px 14px;
+      border-radius:999px;
+      background:rgba(122,127,255,.10);
+      color:#cbd7ff;
+      border:1px solid rgba(122,127,255,.18);
+      font-size:.84rem;
+      font-weight:800;
+      margin-bottom:14px;
+    }
+
+    body.light .section-label{
+      color:#4459dd;
+      background:rgba(122,127,255,.08);
+      border-color:rgba(122,127,255,.14);
+    }
+
+    .section-title{
+      font-family:'Syne',sans-serif;
+      font-size:clamp(2.1rem,4vw,4rem);
+      line-height:1.03;
+      letter-spacing:-1px;
+      margin-bottom:12px;
+    }
+
+    .section-subtitle{
+      max-width:760px;
+      margin:0 auto 40px;
+      text-align:center;
+      color:var(--muted);
+      line-height:1.9;
+    }
+
+    .preloader{
+      position:fixed;
+      inset:0;
+      background:var(--bg);
+      z-index:99999;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      flex-direction:column;
+      gap:14px;
+      transition:.4s ease;
+    }
+    .preloader.hide{opacity:0;visibility:hidden}
+    .loader-ring{
+      width:64px;height:64px;
+      border-radius:50%;
+      border:3px solid rgba(255,255,255,.10);
+      border-top-color:var(--primary-2);
+      animation:spin 1s linear infinite;
+    }
+    body.light .loader-ring{
+      border-color:rgba(0,0,0,.08);
+      border-top-color:var(--primary);
+    }
+    @keyframes spin{to{transform:rotate(360deg)}}
+
+    /* HEADER */
+    .header{
+      position:fixed;
+      top:0;left:0;width:100%;
+      z-index:1000;
+      background:rgba(7,17,31,.72);
+      backdrop-filter:blur(18px);
+      border-bottom:1px solid transparent;
+      transition:.3s ease;
+    }
+
+    body.light .header{
+      background:rgba(255,255,255,.78);
+    }
+
+    .header.scrolled{
+      border-bottom:1px solid var(--line);
+      box-shadow:0 10px 24px rgba(0,0,0,.12);
+    }
+
+    .nav{
+      min-height:84px;
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:18px;
+      position:relative;
+    }
+
+    .logo{
+      font-family:'Syne',sans-serif;
+      font-size:1.72rem;
+      font-weight:800;
+      letter-spacing:-.5px;
+      flex-shrink:0;
+    }
+    .logo span{color:var(--primary-2)}
+
+    .nav-links{
+      list-style:none;
+      display:flex;
+      align-items:center;
+      gap:28px;
+    }
+
+    .nav-links a{
+      font-weight:700;
+      color:var(--text);
+      position:relative;
+      font-size:.95rem;
+    }
+
+    .nav-links a::after{
+      content:"";
+      position:absolute;
+      left:0;
+      bottom:-7px;
+      width:0;
+      height:2px;
+      border-radius:2px;
+      background:linear-gradient(90deg,var(--primary),var(--primary-2));
+      transition:.25s ease;
+    }
+
+    .nav-links a:hover::after{width:100%}
+
+    .nav-actions{
+      display:flex;
+      align-items:center;
+      gap:10px;
+      flex-shrink:0;
+    }
+
+    .menu-toggle{
+      display:none;
+      width:48px;
+      height:48px;
+      border-radius:14px;
+      border:1px solid var(--line);
+      background:rgba(255,255,255,.04);
+      color:var(--text);
+      cursor:pointer;
+      font-size:1.2rem;
+    }
+
+    .mobile-menu{
+      display:none;
+      position:absolute;
+      top:92px;
+      left:0;
+      width:100%;
+      padding:16px;
+      border-radius:22px;
+      background:linear-gradient(180deg,var(--panel),var(--panel-2));
+      border:1px solid var(--line);
+      box-shadow:var(--shadow);
+    }
+
+    .mobile-menu.show{display:block}
+
+    .mobile-menu ul{
+      list-style:none;
+      display:flex;
+      flex-direction:column;
+      gap:8px;
+    }
+
+    .mobile-menu a{
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      padding:14px 16px;
+      border-radius:16px;
+      border:1px solid var(--line);
+      background:rgba(255,255,255,.03);
+      font-weight:700;
+    }
+
+    .mobile-actions{
+      display:flex;
+      gap:10px;
+      margin-top:14px;
+      flex-wrap:wrap;
+    }
+
+    .mobile-actions .btn{flex:1;min-width:150px}
+
+    /* HERO - NEW UNIQUE UI */
+    .hero{
+      padding:122px 0 36px;
+      position:relative;
+      overflow:hidden;
+    }
+
+    .hero-grid{
+      display:grid;
+      grid-template-columns:1.05fr .95fr;
+      gap:26px;
+      align-items:stretch;
+    }
+
+    .hero-left{
+      position:relative;
+      min-height:700px;
+      padding:40px;
+      overflow:hidden;
+      border-radius:34px;
+      border:1px solid rgba(255,255,255,.09);
+      box-shadow:var(--shadow);
+      background:
+        linear-gradient(135deg, rgba(122,127,255,.88), rgba(93,189,253,.78)),
+        url('https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&w=1800&q=80') center/cover no-repeat;
+    }
+
+    .hero-left::before{
+      content:"";
+      position:absolute;
+      inset:0;
+      background:
+        linear-gradient(to right, rgba(6,16,33,.15), transparent 55%),
+        linear-gradient(to top, rgba(8,17,35,.52), rgba(8,17,35,.08));
+    }
+
+    .hero-left > *{
+      position:relative;
+      z-index:2;
+    }
+
+    .hero-badge{
+      display:inline-flex;
+      align-items:center;
+      gap:10px;
+      padding:10px 16px;
+      border-radius:999px;
+      background:rgba(255,255,255,.12);
+      border:1px solid rgba(255,255,255,.18);
+      color:#fff;
+      font-weight:800;
+      backdrop-filter:blur(12px);
+      margin-bottom:22px;
+    }
+
+    .hero-left h1{
+      font-family:'Syne',sans-serif;
+      font-size:clamp(3rem,6vw,6rem);
+      line-height:.95;
+      letter-spacing:-2px;
+      max-width:620px;
+      margin-bottom:18px;
+      color:#fff;
+    }
+
+    .hero-left p{
+      max-width:600px;
+      color:rgba(255,255,255,.90);
+      font-size:1.04rem;
+      line-height:1.9;
+      margin-bottom:28px;
+    }
+
+    .hero-cta{
+      display:flex;
+      gap:14px;
+      flex-wrap:wrap;
+      margin-bottom:34px;
+    }
+
+    .hero-cta .btn-secondary{
+      color:#fff;
+      border-color:rgba(255,255,255,.18);
+      background:rgba(255,255,255,.08);
+    }
+
+    .hero-metric-strip{
+      display:grid;
+      grid-template-columns:repeat(3,1fr);
+      gap:14px;
+      max-width:680px;
+    }
+
+    .hero-metric{
+      padding:18px;
+      border-radius:22px;
+      background:rgba(255,255,255,.10);
+      border:1px solid rgba(255,255,255,.14);
+      backdrop-filter:blur(10px);
+    }
+
+    .hero-metric strong{
+      display:block;
+      font-size:1.5rem;
+      color:#fff;
+      margin-bottom:4px;
+    }
+
+    .hero-metric span{
+      color:rgba(255,255,255,.88);
+      font-size:.92rem;
+    }
+
+    .hero-floating-card{
+      position:absolute;
+      right:26px;
+      bottom:26px;
+      width:280px;
+      padding:18px;
+      border-radius:24px;
+      background:rgba(255,255,255,.14);
+      border:1px solid rgba(255,255,255,.16);
+      backdrop-filter:blur(16px);
+      color:#fff;
+    }
+
+    .hero-floating-card h4{
+      font-size:1rem;
+      margin-bottom:8px;
+    }
+
+    .hero-floating-card p{
+      font-size:.9rem;
+      line-height:1.8;
+      margin:0;
+      color:rgba(255,255,255,.88);
+    }
+
+    .hero-right{
+      display:grid;
+      grid-template-rows:auto auto 1fr;
+      gap:20px;
+    }
+
+    .hero-top-cards{
+      display:grid;
+      grid-template-columns:1fr 1fr;
+      gap:20px;
+    }
+
+    .hero-mini-card{
+      padding:24px;
+      min-height:160px;
+      position:relative;
+      overflow:hidden;
+    }
+
+    .hero-mini-card::after{
+      content:"";
+      position:absolute;
+      width:120px;
+      height:120px;
+      right:-35px;
+      top:-35px;
+      border-radius:50%;
+      background:rgba(122,127,255,.12);
+      filter:blur(4px);
+    }
+
+    .hero-mini-icon{
+      width:56px;
+      height:56px;
+      border-radius:18px;
+      display:inline-flex;
+      align-items:center;
+      justify-content:center;
+      background:rgba(122,127,255,.12);
+      color:#b9c6ff;
+      font-size:1.2rem;
+      margin-bottom:16px;
+      position:relative;
+      z-index:2;
+    }
+
+    body.light .hero-mini-icon{
+      color:#495fe0;
+    }
+
+    .hero-mini-card h4{
+      font-size:1.04rem;
+      margin-bottom:10px;
+      position:relative;
+      z-index:2;
+    }
+
+    .hero-mini-card p{
+      color:var(--muted);
+      line-height:1.85;
+      position:relative;
+      z-index:2;
+    }
+
+    .search-card{
+      padding:26px;
+      position:relative;
+      overflow:hidden;
+    }
+
+    .search-card::before{
+      content:"";
+      position:absolute;
+      inset:auto auto -50px -50px;
+      width:150px;
+      height:150px;
+      border-radius:50%;
+      background:rgba(34,211,238,.08);
+      filter:blur(4px);
+    }
+
+    .search-card h3{
+      font-family:'Syne',sans-serif;
+      font-size:clamp(1.8rem,3vw,2.6rem);
+      margin-bottom:8px;
+      position:relative;
+      z-index:2;
+    }
+
+    .search-card p{
+      color:var(--muted);
+      line-height:1.85;
+      margin-bottom:18px;
+      position:relative;
+      z-index:2;
+    }
+
+    .search-grid{
+      display:grid;
+      grid-template-columns:1fr 1fr;
+      gap:14px;
+      position:relative;
+      z-index:2;
+    }
+
+    .field-full{grid-column:1/-1}
+
+    .search-grid input,
+    .search-grid select{
+      width:100%;
+      padding:15px 16px;
+      border-radius:16px;
+      border:1px solid var(--line);
+      background:rgba(255,255,255,.03);
+      color:var(--text);
+      outline:none;
+    }
+
+    body.light .search-grid input,
+    body.light .search-grid select{
+      background:#fff;
+    }
+
+    .hero-destination-stack{
+      display:grid;
+      grid-template-columns:1.2fr .8fr;
+      gap:18px;
+      min-height:238px;
+    }
+
+    .stack-main{
+      position:relative;
+      overflow:hidden;
+      min-height:238px;
+      border-radius:28px;
+    }
+
+    .stack-main img{
+      width:100%;
+      height:100%;
+      object-fit:cover;
+    }
+
+    .stack-main::after{
+      content:"";
+      position:absolute;
+      inset:0;
+      background:linear-gradient(to top, rgba(5,12,25,.68), transparent 55%);
+    }
+
+    .stack-content{
+      position:absolute;
+      left:20px;
+      right:20px;
+      bottom:18px;
+      z-index:2;
+      color:#fff;
+    }
+
+    .stack-content h4{
+      font-size:1.2rem;
+      margin-bottom:6px;
+    }
+
+    .stack-content span{
+      color:rgba(255,255,255,.88);
+      font-size:.92rem;
+    }
+
+    .stack-side{
+      display:grid;
+      gap:18px;
+    }
+
+    .stack-small{
+      position:relative;
+      overflow:hidden;
+      border-radius:24px;
+      min-height:110px;
+    }
+
+    .stack-small img{
+      width:100%;
+      height:100%;
+      object-fit:cover;
+    }
+
+    .stack-small::after{
+      content:"";
+      position:absolute;
+      inset:0;
+      background:linear-gradient(to top, rgba(5,12,25,.56), transparent 60%);
+    }
+
+    .stack-small strong{
+      position:absolute;
+      left:14px;
+      bottom:12px;
+      z-index:2;
+      color:#fff;
+      font-size:.9rem;
+    }
+
+    /* CONTENT */
+    .experience-grid{
+      display:grid;
+      grid-template-columns:repeat(4,1fr);
+      gap:18px;
+    }
+
+    .experience-card{
+      padding:22px;
+    }
+
+    .experience-card i{
+      width:58px;
+      height:58px;
+      border-radius:18px;
+      display:inline-flex;
+      align-items:center;
+      justify-content:center;
+      background:rgba(34,211,238,.10);
+      color:var(--accent);
+      font-size:1.3rem;
+      margin-bottom:14px;
+    }
+
+    .experience-card h4{
+      margin-bottom:8px;
+      font-size:1.05rem;
+    }
+
+    .experience-card p{
+      color:var(--muted);
+      line-height:1.8;
+      font-size:.94rem;
+    }
+
+    .editorial-grid{
+      display:grid;
+      grid-template-columns:1.1fr .9fr;
+      gap:24px;
+      align-items:stretch;
+    }
+
+    .editorial-image{
+      overflow:hidden;
+      min-height:560px;
+      position:relative;
+    }
+
+    .editorial-image img{
+      width:100%;
+      height:100%;
+      object-fit:cover;
+    }
+
+    .editorial-badge{
+      position:absolute;
+      left:24px;
+      top:24px;
+      padding:10px 16px;
+      border-radius:999px;
+      background:rgba(255,255,255,.88);
+      color:#111827;
+      font-size:.85rem;
+      font-weight:800;
+    }
+
+    .editorial-content{
+      padding:32px;
+      display:flex;
+      flex-direction:column;
+      justify-content:center;
+    }
+
+    .editorial-content p{
+      color:var(--muted);
+      line-height:1.9;
+      margin-bottom:16px;
+    }
+
+    .detail-list{
+      display:grid;
+      grid-template-columns:1fr 1fr;
+      gap:14px;
+      margin-top:18px;
+    }
+
+    .detail-item{
+      padding:16px;
+      border-radius:18px;
+      border:1px solid var(--line);
+      background:rgba(255,255,255,.03);
+      display:flex;
+      gap:12px;
+      align-items:flex-start;
+    }
+
+    body.light .detail-item{background:#f8fbff}
+
+    .detail-item i{
+      color:var(--primary-2);
+      margin-top:4px;
+    }
+
+    .filters-wrap{
+      display:flex;
+      flex-wrap:wrap;
+      justify-content:center;
+      gap:14px;
+      margin-bottom:34px;
+    }
+
+    .search-box{
+      position:relative;
+      min-width:290px;
+      max-width:380px;
+      width:100%;
+    }
+
+    .search-box i{
+      position:absolute;
+      left:16px;
+      top:50%;
+      transform:translateY(-50%);
+      color:var(--muted);
+    }
+
+    .search-box input{
+      width:100%;
+      padding:14px 16px 14px 44px;
+      border-radius:999px;
+      border:1px solid var(--line);
+      background:rgba(255,255,255,.03);
+      color:var(--text);
+      outline:none;
+    }
+
+    body.light .search-box input{background:#fff}
+
+    .filter-pills{
+      display:flex;
+      flex-wrap:wrap;
+      gap:10px;
+      justify-content:center;
+    }
+
+    .filter-btn{
+      padding:11px 18px;
+      border-radius:999px;
+      border:1px solid var(--line);
+      background:rgba(255,255,255,.03);
+      color:var(--text);
+      font-weight:800;
+      cursor:pointer;
+      transition:.3s ease;
+    }
+
+    body.light .filter-btn{background:#fff}
+
+    .filter-btn.active,
+    .filter-btn:hover{
+      background:linear-gradient(135deg,var(--primary),var(--primary-2));
+      color:#fff;
+      border-color:transparent;
+    }
+
+    .package-grid{
+      display:grid;
+      grid-template-columns:repeat(3,1fr);
+      gap:22px;
+    }
+
+    .package-card{
+      overflow:hidden;
+      transition:.35s ease;
+    }
+
+    .package-card:hover{transform:translateY(-6px)}
+
+    .package-top{
+      position:relative;
+      height:230px;
+      overflow:hidden;
+    }
+
+    .package-top img{
+      width:100%;
+      height:100%;
+      object-fit:cover;
+      transition:.45s ease;
+    }
+
+    .package-card:hover .package-top img{transform:scale(1.08)}
+
+    .package-top::after{
+      content:"";
+      position:absolute;
+      inset:0;
+      background:linear-gradient(to top, rgba(11,17,32,.56), transparent 40%);
+    }
+
+    .package-chip{
+      position:absolute;
+      top:16px;
+      left:16px;
+      padding:8px 14px;
+      border-radius:999px;
+      background:rgba(255,255,255,.92);
+      color:#111827;
+      font-size:.8rem;
+      font-weight:800;
+      z-index:2;
+    }
+
+    .wish-btn{
+      position:absolute;
+      top:16px;
+      right:16px;
+      width:42px;
+      height:42px;
+      border-radius:50%;
+      border:none;
+      background:rgba(255,255,255,.95);
+      color:#334155;
+      cursor:pointer;
+      z-index:2;
+      transition:.3s ease;
+    }
+
+    .wish-btn.active{
+      background:#ffe6ea;
+      color:#e11d48;
+    }
+
+    .package-floating-title{
+      position:absolute;
+      left:18px;
+      right:18px;
+      bottom:18px;
+      z-index:2;
+      color:#fff;
+    }
+
+    .package-floating-title h3{
+      font-size:1.25rem;
+      margin-bottom:6px;
+    }
+
+    .package-floating-title span{
+      font-size:.9rem;
+      color:rgba(255,255,255,.88);
+    }
+
+    .package-body{padding:22px}
+
+    .price-row{
+      display:flex;
+      justify-content:space-between;
+      align-items:center;
+      gap:12px;
+      margin-bottom:14px;
+    }
+
+    .price-row .price{
+      font-size:1.3rem;
+      font-weight:800;
+      color:var(--primary-2);
+    }
+
+    .price-row .per{
+      color:var(--muted);
+      font-size:.88rem;
+    }
+
+    .package-desc{
+      color:var(--muted);
+      line-height:1.8;
+      font-size:.95rem;
+      min-height:74px;
+      margin-bottom:16px;
+    }
+
+    .package-meta{
+      display:grid;
+      grid-template-columns:repeat(3,1fr);
+      gap:10px;
+      margin-bottom:18px;
+    }
+
+    .meta-box{
+      padding:12px;
+      border-radius:16px;
+      background:rgba(255,255,255,.03);
+      border:1px solid var(--line);
+      text-align:center;
+      font-size:.82rem;
+      color:var(--muted);
+      font-weight:700;
+    }
+
+    body.light .meta-box{background:#f7faff}
+
+    .meta-box strong{
+      display:block;
+      color:var(--text);
+      margin-bottom:4px;
+      font-size:.92rem;
+    }
+
+    .package-actions{
+      display:flex;
+      gap:10px;
+      flex-wrap:wrap;
+    }
+
+    .package-actions .btn{
+      flex:1;
+      min-width:130px;
+      border-radius:16px;
+      padding:12px 14px;
+    }
+
+    .dual-grid{
+      display:grid;
+      grid-template-columns:1fr 1fr;
+      gap:24px;
+    }
+
+    .form-card{padding:28px}
+
+    .form-card h3{
+      font-family:'Syne',sans-serif;
+      font-size:1.65rem;
+      margin-bottom:8px;
+    }
+
+    .form-card p{
+      color:var(--muted);
+      line-height:1.8;
+      margin-bottom:20px;
+    }
+
+    .field{margin-bottom:16px}
+
+    .field label{
+      display:block;
+      margin-bottom:8px;
+      font-weight:800;
+      font-size:.95rem;
+    }
+
+    .field input,
+    .field select,
+    .field textarea{
+      width:100%;
+      padding:14px 15px;
+      border-radius:16px;
+      border:1px solid var(--line);
+      background:rgba(255,255,255,.03);
+      color:var(--text);
+      outline:none;
+    }
+
+    body.light .field input,
+    body.light .field select,
+    body.light .field textarea{
+      background:#fff;
+    }
+
+    .field textarea{
+      min-height:110px;
+      resize:vertical;
+    }
+
+    .booking-visual{
+      min-height:720px;
+      overflow:hidden;
+      position:relative;
+    }
+
+    .booking-visual img{
+      width:100%;
+      height:100%;
+      object-fit:cover;
+    }
+
+    .booking-overlay{
+      position:absolute;
+      left:24px;
+      right:24px;
+      bottom:24px;
+      padding:22px;
+      border-radius:22px;
+      background:rgba(255,255,255,.88);
+      color:#111827;
+      backdrop-filter:blur(12px);
+    }
+
+    .summary-list .item{
+      display:flex;
+      justify-content:space-between;
+      gap:12px;
+      padding:14px 0;
+      border-bottom:1px solid var(--line);
+      align-items:center;
+    }
+
+    .totals{
+      border-top:1px solid var(--line);
+      margin-top:16px;
+      padding-top:18px;
+    }
+
+    .line{
+      display:flex;
+      justify-content:space-between;
+      margin-bottom:10px;
+      color:var(--muted);
+    }
+
+    .line.total{
+      color:var(--text);
+      font-size:1.15rem;
+      font-weight:800;
+      margin-top:12px;
+    }
+
+    /* Destination slider */
+    .destination-story-wrap{
+      max-width:1120px;
+      margin:0 auto;
+    }
+
+    .destination-story-card{
+      position:relative;
+      overflow:hidden;
+      min-height:620px;
+      border-radius:30px;
+      border:1px solid var(--line);
+      box-shadow:var(--shadow);
+      background:linear-gradient(180deg,var(--panel),var(--panel-2));
+    }
+
+    .story-slider{
+      position:relative;
+      width:100%;
+      height:620px;
+    }
+
+    .story-slide{
+      position:absolute;
+      inset:0;
+      opacity:0;
+      visibility:hidden;
+      transition:opacity .55s ease, transform .55s ease;
+      transform:scale(1.03);
+    }
+
+    .story-slide.active{
+      opacity:1;
+      visibility:visible;
+      transform:scale(1);
+    }
+
+    .story-slide img{
+      width:100%;
+      height:100%;
+      object-fit:cover;
+    }
+
+    .story-slide::after{
+      content:"";
+      position:absolute;
+      inset:0;
+      background:
+        linear-gradient(to top, rgba(7,13,28,.78) 0%, rgba(7,13,28,.28) 38%, rgba(7,13,28,.08) 60%, transparent 100%);
+    }
+
+    .story-top-badge{
+      position:absolute;
+      top:24px;
+      left:24px;
+      z-index:3;
+      display:inline-flex;
+      align-items:center;
+      gap:10px;
+      padding:10px 16px;
+      border-radius:999px;
+      background:rgba(255,255,255,.9);
+      color:#111827;
+      font-size:.86rem;
+      font-weight:800;
+      box-shadow:0 10px 30px rgba(0,0,0,.12);
+    }
+
+    .story-content{
+      position:absolute;
+      left:28px;
+      right:28px;
+      bottom:28px;
+      z-index:3;
+      display:flex;
+      justify-content:space-between;
+      gap:20px;
+      align-items:flex-end;
+      flex-wrap:wrap;
+    }
+
+    .story-content-left{max-width:760px}
+
+    .story-kicker{
+      display:inline-flex;
+      align-items:center;
+      gap:8px;
+      padding:8px 14px;
+      border-radius:999px;
+      background:rgba(255,255,255,.14);
+      border:1px solid rgba(255,255,255,.18);
+      color:#fff;
+      font-size:.82rem;
+      font-weight:800;
+      margin-bottom:14px;
+      backdrop-filter:blur(8px);
+    }
+
+    .story-title{
+      color:#fff;
+      font-family:'Syne',sans-serif;
+      font-size:clamp(2rem,4vw,3.6rem);
+      line-height:1.02;
+      letter-spacing:-1px;
+      margin-bottom:12px;
+    }
+
+    .story-desc{
+      color:rgba(255,255,255,.9);
+      line-height:1.85;
+      max-width:720px;
+      font-size:1rem;
+    }
+
+    .story-meta{
+      display:flex;
+      gap:12px;
+      flex-wrap:wrap;
+      margin-top:18px;
+    }
+
+    .story-meta .meta-pill{
+      padding:10px 14px;
+      border-radius:999px;
+      background:rgba(255,255,255,.14);
+      border:1px solid rgba(255,255,255,.16);
+      color:#fff;
+      font-size:.84rem;
+      font-weight:800;
+      backdrop-filter:blur(8px);
+    }
+
+    .story-controls{
+      display:flex;
+      align-items:center;
+      gap:10px;
+      flex-wrap:wrap;
+    }
+
+    .story-nav-btn{
+      width:52px;
+      height:52px;
+      border:none;
+      border-radius:18px;
+      background:rgba(255,255,255,.92);
+      color:#111827;
+      font-size:1.05rem;
+      cursor:pointer;
+      box-shadow:0 12px 26px rgba(0,0,0,.14);
+      transition:.3s ease;
+    }
+
+    .story-nav-btn:hover{transform:translateY(-2px)}
+
+    .story-dots{
+      display:flex;
+      align-items:center;
+      gap:8px;
+      padding:10px 14px;
+      border-radius:999px;
+      background:rgba(255,255,255,.14);
+      border:1px solid rgba(255,255,255,.16);
+      backdrop-filter:blur(8px);
+    }
+
+    .story-dot{
+      width:10px;
+      height:10px;
+      border-radius:50%;
+      border:none;
+      background:rgba(255,255,255,.42);
+      cursor:pointer;
+      transition:.25s ease;
+      padding:0;
+    }
+
+    .story-dot.active{
+      width:28px;
+      border-radius:999px;
+      background:#fff;
+    }
+
+    .story-thumbs{
+      display:grid;
+      grid-template-columns:repeat(5,1fr);
+      gap:14px;
+      margin-top:22px;
+    }
+
+    .story-thumb{
+      position:relative;
+      overflow:hidden;
+      border-radius:20px;
+      min-height:120px;
+      border:1px solid var(--line);
+      cursor:pointer;
+      box-shadow:var(--shadow);
+    }
+
+    .story-thumb img{
+      width:100%;
+      height:100%;
+      object-fit:cover;
+      transition:transform .35s ease, opacity .35s ease;
+    }
+
+    .story-thumb::after{
+      content:"";
+      position:absolute;
+      inset:0;
+      background:linear-gradient(to top, rgba(0,0,0,.35), transparent);
+      opacity:.85;
+      transition:.3s ease;
+    }
+
+    .story-thumb.active{
+      outline:2px solid var(--primary);
+      outline-offset:2px;
+    }
+
+    .story-thumb:hover img,
+    .story-thumb.active img{transform:scale(1.06)}
+
+    .story-thumb.active::after{opacity:.25}
+
+    .story-thumb-label{
+      position:absolute;
+      left:12px;
+      bottom:10px;
+      z-index:2;
+      color:#fff;
+      font-size:.8rem;
+      font-weight:800;
+    }
+
+    .testimonials{
+      display:grid;
+      grid-template-columns:repeat(3,1fr);
+      gap:22px;
+    }
+
+    .testimonial-card{padding:26px}
+
+    .testimonial-stars{
+      color:var(--warning);
+      margin-bottom:14px;
+    }
+
+    .testimonial-card p{
+      color:var(--muted);
+      line-height:1.9;
+      margin-bottom:18px;
+    }
+
+    .user{
+      display:flex;
+      align-items:center;
+      gap:12px;
+    }
+
+    .user img{
+      width:56px;
+      height:56px;
+      border-radius:50%;
+      object-fit:cover;
+    }
+
+    .overlay{
+      position:fixed;
+      inset:0;
+      background:rgba(0,0,0,.45);
+      z-index:1500;
+      opacity:0;
+      visibility:hidden;
+      transition:.3s ease;
+    }
+
+    .overlay.show{
+      opacity:1;
+      visibility:visible;
+    }
+
+    .side-panel{
+      position:fixed;
+      top:0;
+      right:-430px;
+      width:420px;
+      max-width:100%;
+      height:100vh;
+      background:var(--panel);
+      border-left:1px solid var(--line);
+      box-shadow:-10px 0 30px rgba(0,0,0,.10);
+      z-index:2000;
+      display:flex;
+      flex-direction:column;
+      transition:.35s ease;
+    }
+
+    .side-panel.show{right:0}
+
+    .panel-header{
+      padding:18px 20px;
+      border-bottom:1px solid var(--line);
+      display:flex;
+      justify-content:space-between;
+      align-items:center;
+      gap:14px;
+    }
+
+    .panel-close{
+      width:38px;
+      height:38px;
+      border-radius:50%;
+      border:1px solid var(--line);
+      background:rgba(255,255,255,.04);
+      color:var(--text);
+      cursor:pointer;
+    }
+
+    .panel-body{
+      flex:1;
+      overflow:auto;
+      padding:18px 20px;
+    }
+
+    .wish-item,.cart-item{
+      display:grid;
+      grid-template-columns:84px 1fr;
+      gap:14px;
+      padding:14px 0;
+      border-bottom:1px solid var(--line);
+    }
+
+    .wish-item img,.cart-item img{
+      width:84px;
+      height:84px;
+      object-fit:cover;
+      border-radius:18px;
+    }
+
+    .qty-row{
+      display:flex;
+      align-items:center;
+      gap:10px;
+      margin-top:8px;
+    }
+
+    .qty-btn{
+      width:28px;
+      height:28px;
+      border-radius:50%;
+      border:none;
+      background:rgba(255,255,255,.06);
+      color:var(--text);
+      cursor:pointer;
+    }
+
+    .mini-btn{
+      padding:8px 12px;
+      border:none;
+      border-radius:12px;
+      cursor:pointer;
+      font-weight:800;
+      font-size:.82rem;
+    }
+
+    .mini-edit{
+      background:#e8f1ff;
+      color:#245cc6;
+    }
+
+    .mini-delete{
+      background:#ffe8e8;
+      color:#c53d3d;
+    }
+
+    .modal{
+      position:fixed;
+      inset:0;
+      background:rgba(0,0,0,.45);
+      z-index:2500;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      padding:20px;
+      opacity:0;
+      visibility:hidden;
+      transition:.3s ease;
+    }
+
+    .modal.show{
+      opacity:1;
+      visibility:visible;
+    }
+
+    .modal-box{
+      width:min(470px,100%);
+      border-radius:28px;
+      overflow:hidden;
+      background:var(--panel);
+      border:1px solid var(--line);
+      box-shadow:var(--shadow);
+      transform:translateY(20px);
+      transition:.3s ease;
+    }
+
+    .modal.show .modal-box{transform:translateY(0)}
+
+    .modal-tabs{
+      display:flex;
+      border-bottom:1px solid var(--line);
+    }
+
+    .modal-tab{
+      flex:1;
+      padding:16px;
+      background:var(--panel);
+      color:var(--text);
+      border:none;
+      font-weight:800;
+      cursor:pointer;
+    }
+
+    .modal-tab.active{
+      background:rgba(255,255,255,.04);
+      color:var(--primary-2);
+    }
+
+    .modal-content{padding:24px}
+    .hidden{display:none!important}
+
+    .footer{
+      padding:30px 0;
+      border-top:1px solid var(--line);
+      background:rgba(255,255,255,.02);
+    }
+
+    .footer-inner{
+      display:flex;
+      justify-content:space-between;
+      align-items:center;
+      gap:16px;
+      flex-wrap:wrap;
+    }
+
+    .wa-btn{
+      position:fixed;
+      right:18px;
+      bottom:18px;
+      width:58px;
+      height:58px;
+      border-radius:50%;
+      border:none;
+      background:#25D366;
+      color:#fff;
+      font-size:1.55rem;
+      z-index:999;
+      box-shadow:0 10px 25px rgba(37,211,102,.28);
+      cursor:pointer;
+    }
+
+    .back-top{
+      position:fixed;
+      left:18px;
+      bottom:18px;
+      width:52px;
+      height:52px;
+      border-radius:50%;
+      border:1px solid var(--line);
+      background:var(--panel);
+      color:var(--text);
+      z-index:999;
+      cursor:pointer;
+      opacity:0;
+      visibility:hidden;
+      transition:.3s ease;
+    }
+
+    .back-top.show{
+      opacity:1;
+      visibility:visible;
+    }
+
+    .toast{
+      position:fixed;
+      top:92px;
+      right:20px;
+      background:var(--text);
+      color:var(--bg);
+      padding:14px 18px;
+      border-radius:14px;
+      box-shadow:var(--shadow);
+      z-index:4000;
+      font-weight:800;
+      opacity:0;
+      visibility:hidden;
+      transform:translateY(-10px);
+      transition:.3s ease;
+    }
+
+    body.light .toast{
+      background:#111827;
+      color:#fff;
+    }
+
+    .toast.show{
+      opacity:1;
+      visibility:visible;
+      transform:translateY(0);
+    }
+
+    .empty{
+      text-align:center;
+      color:var(--muted);
+      padding:30px 10px;
+    }
+
+    @media (max-width:1200px){
+      .hero-grid,
+      .editorial-grid,
+      .dual-grid{
+        grid-template-columns:1fr;
+      }
+
+      .experience-grid,
+      .package-grid,
+      .testimonials{
+        grid-template-columns:repeat(2,1fr);
+      }
+
+      .hero-left{min-height:620px}
+    }
+
+    @media (max-width:992px){
+      .nav-links{display:none}
+      .menu-toggle{display:inline-flex;align-items:center;justify-content:center}
+      .nav-actions .btn-primary{display:none}
+      .hero-top-cards,
+      .hero-destination-stack{
+        grid-template-columns:1fr;
+      }
+      .hero-left{
+        min-height:auto;
+      }
+      .hero-floating-card{
+        position:relative;
+        right:auto;
+        bottom:auto;
+        width:100%;
+        margin-top:22px;
+      }
+    }
+
+    @media (max-width:768px){
+      .hero{
+        padding:112px 0 30px;
+      }
+
+      .hero-left{
+        padding:26px;
+        border-radius:28px;
+      }
+
+      .hero-left h1{
+        font-size:clamp(2.45rem,12vw,4rem);
+      }
+
+      .hero-metric-strip{
+        grid-template-columns:1fr;
+      }
+
+      .search-grid{
+        grid-template-columns:1fr;
+      }
+
+      .story-slider,
+      .destination-story-card{
+        min-height:520px;
+        height:520px;
+      }
+
+      .story-thumbs{
+        grid-template-columns:1fr 1fr;
+      }
+
+      .detail-list,
+      .experience-grid,
+      .package-grid,
+      .testimonials{
+        grid-template-columns:1fr;
+      }
+
+      .package-meta{
+        grid-template-columns:1fr;
+      }
+
+      .mobile-actions{
+        flex-direction:column;
+      }
+
+      .side-panel{
+        width:100%;
+      }
+    }
+
+    @media (max-width:560px){
+      .nav{
+        min-height:76px;
+      }
+
+      .logo{
+        font-size:1.45rem;
+      }
+
+      .nav-actions{
+        gap:8px;
+      }
+
+      .icon-btn{
+        width:42px;
+        height:42px;
+      }
+
+      .hero-cta{
+        flex-direction:column;
+      }
+
+      .story-content{
+        left:18px;
+        right:18px;
+        bottom:18px;
+      }
+
+      .story-top-badge{
+        top:16px;
+        left:16px;
+      }
+
+      .story-nav-btn{
+        width:46px;
+        height:46px;
+        border-radius:14px;
+      }
+
+      .story-thumbs{
+        gap:10px;
+      }
+
+      .section{
+        padding:72px 0;
+      }
+    }
+
+    .hero-premium{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:40px;
+  align-items:center;
+}
+
+.hero-content h1{
+  font-size:clamp(2.5rem,5vw,4.5rem);
+  margin-bottom:15px;
+}
+
+.hero-content p{
+  color:var(--muted);
+  margin-bottom:20px;
+}
+
+.hero-search{
+  margin-top:25px;
+  padding:20px;
+  backdrop-filter:blur(20px);
+  background:rgba(255,255,255,.05);
+}
+
+.hero-images{
+  position:relative;
+  height:520px;
+}
+
+.hero-img{
+  position:absolute;
+  border-radius:20px;
+  overflow:hidden;
+  box-shadow:0 20px 50px rgba(0,0,0,.4);
+}
+
+.hero-img img{
+  width:100%;
+  height:100%;
+  object-fit:cover;
+}
+
+.hero-img.big{
+  width:70%;
+  height:100%;
+  left:0;
+}
+
+.hero-img.small{
+  width:45%;
+  height:45%;
+  right:0;
+}
+
+.hero-img.top{
+  top:0;
+}
+
+.hero-img.bottom{
+  bottom:0;
+}
+
+@media(max-width:992px){
+  .hero-premium{
+    grid-template-columns:1fr;
+  }
+
+  .hero-images{
+    height:400px;
+  }
+
+  .hero-img.big{
+    width:100%;
+  }
+
+  .hero-img.small{
+    display:none;
+  }
+}
+  </style>
+</head>
+<body>
+
+  <div class="preloader" id="preloader">
+    <div class="loader-ring"></div>
+    <div style="font-weight:800;color:var(--primary-2)">Building your next journey...</div>
+  </div>
+
+  <header class="header" id="header">
+    <div class="container">
+      <nav class="nav">
+        <a href="#" class="logo">SkyAura-<span>Travel</span></a>
+
+        <ul class="nav-links">
+          <li><a href="#home">Home</a></li>
+          <li><a href="#discover">Discover</a></li>
+          <li><a href="#packages">Packages</a></li>
+          <li><a href="#booking">Booking</a></li>
+          <li><a href="#checkout">Checkout</a></li>
+        </ul>
+
+        <div class="nav-actions">
+          <button class="icon-btn" id="themeToggle" title="Theme">
+            <i class="bi bi-moon-stars-fill"></i>
+          </button>
+
+          <button class="icon-btn" onclick="openPanel('wishlistPanel')" title="Wishlist">
+            <i class="bi bi-heart"></i>
+            <span class="count" id="wishlistCount">0</span>
+          </button>
+
+          <button class="icon-btn" onclick="openPanel('cartPanel')" title="Trip Cart">
+            <i class="bi bi-bag"></i>
+            <span class="count" id="cartCount">0</span>
+          </button>
+
+          <button class="btn btn-primary" onclick="openAuthModal()">
+            <i class="bi bi-person-circle"></i> Login
+          </button>
+
+          <button class="menu-toggle" id="menuToggle" aria-label="Open menu">
+            <i class="bi bi-list"></i>
+          </button>
+        </div>
+
+        <div class="mobile-menu" id="mobileMenu">
+          <ul>
+            <li><a href="#home">Home <i class="bi bi-arrow-right"></i></a></li>
+            <li><a href="#discover">Discover <i class="bi bi-arrow-right"></i></a></li>
+            <li><a href="#packages">Packages <i class="bi bi-arrow-right"></i></a></li>
+            <li><a href="#booking">Booking <i class="bi bi-arrow-right"></i></a></li>
+            <li><a href="#checkout">Checkout <i class="bi bi-arrow-right"></i></a></li>
+          </ul>
+
+          <div class="mobile-actions">
+            <button class="btn btn-primary" onclick="openAuthModal(); closeMobileMenu();">
+              <i class="bi bi-person-circle"></i> Login
+            </button>
+            <button class="btn btn-secondary" onclick="sendWhatsAppBooking(); closeMobileMenu();">
+              <i class="bi bi-whatsapp"></i> WhatsApp
+            </button>
+          </div>
+        </div>
+      </nav>
+    </div>
+  </header>
+
+  <section class="hero" id="home">
+  <div class="container">
+
+    <div class="hero-premium">
+
+      <!-- LEFT CONTENT -->
+      <div class="hero-content">
+
+        <div class="hero-badge">
+          <i class="bi bi-stars"></i> Premium travel experience
+        </div>
+
+        <h1>Explore the world in luxury style.</h1>
+
+        <p>
+          Discover stunning destinations, curated experiences, and seamless booking —
+          all designed to turn your travel dreams into reality.
+        </p>
+
+        <div class="hero-cta">
+          <a href="#packages" class="btn btn-primary">
+            <i class="bi bi-compass"></i> Explore trips
+          </a>
+          <a href="#booking" class="btn btn-secondary">
+            <i class="bi bi-send"></i> Plan custom tour
+          </a>
+        </div>
+
+        <!-- SEARCH BOX -->
+        <div class="hero-search card">
+          <h3>Search your next trip</h3>
+
+          <form class="search-grid" onsubmit="event.preventDefault(); scrollToSection('packages');">
+
+            <div class="field-full">
+              <input type="text" placeholder="Search destination..." />
+            </div>
+
+            <div>
+              <select>
+                <option>Trip type</option>
+                <option>Beach</option>
+                <option>Luxury</option>
+                <option>Adventure</option>
+              </select>
+            </div>
+
+            <div>
+              <select>
+                <option>Budget</option>
+                <option>₹30K - ₹60K</option>
+                <option>₹60K - ₹1L</option>
+              </select>
+            </div>
+
+            <div>
+              <input type="date" />
+            </div>
+
+            <div>
+              <input type="number" placeholder="Travelers" />
+            </div>
+
+            <div class="field-full">
+              <button class="btn btn-primary" style="width:100%">Find Trips</button>
+            </div>
+
+          </form>
+        </div>
+
+      </div>
+
+      <!-- RIGHT IMAGE STACK -->
+      <div class="hero-images">
+
+        <div class="hero-img big">
+          <img src="https://images.unsplash.com/photo-1507525428034-b723cf961d3e" />
+        </div>
+
+        <div class="hero-img small top">
+          <img src="https://images.unsplash.com/photo-1512453979798-5ea266f8880c" />
+        </div>
+
+        <div class="hero-img small bottom">
+          <img src="https://images.unsplash.com/photo-1537996194471-e657df975ab4" />
+        </div>
+
+      </div>
+
+    </div>
+
+  </div>
+</section>
+
+  <section class="section">
+    <div class="container">
+      <div class="experience-grid">
+        <div class="card experience-card">
+          <i class="bi bi-airplane-engines"></i>
+          <h4>Premium packages</h4>
+          <p>Each destination is arranged to feel premium, organized, and visually inspiring.</p>
+        </div>
+        <div class="card experience-card">
+          <i class="bi bi-heart-pulse"></i>
+          <h4>Wishlist planning</h4>
+          <p>Save favorite trips before deciding, compare options, and choose your perfect route.</p>
+        </div>
+        <div class="card experience-card">
+          <i class="bi bi-bag-check"></i>
+          <h4>Travel cart</h4>
+          <p>Add multiple packages, view totals, and continue into a cleaner checkout experience.</p>
+        </div>
+        <div class="card experience-card">
+          <i class="bi bi-whatsapp"></i>
+          <h4>Instant support</h4>
+          <p>Push your selected trip details directly to WhatsApp for faster travel coordination.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" id="discover">
+    <div class="container editorial-grid">
+      <div class="card editorial-image">
+        <img src="https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?auto=format&fit=crop&w=1600&q=80" alt="Travel destination">
+        <div class="editorial-badge">Editor’s pick • Switzerland</div>
+      </div>
+
+      <div class="card editorial-content">
+        <div class="section-label"><i class="bi bi-compass"></i> discover better</div>
+        <h2 class="section-title">A premium travel UI with stronger first impressions.</h2>
+        <p>
+          This version gives the homepage a more unique visual identity with a stronger hero, premium content rhythm,
+          responsive navigation, and cleaner discovery flow.
+        </p>
+        <p>
+          The whole first fold is designed to immediately attract attention and make customers feel that the brand is professional, modern, and trustworthy.
+        </p>
+
+        <div class="detail-list">
+          <div class="detail-item">
+            <i class="bi bi-check2-circle"></i>
+            <div><strong>Unique hero composition</strong><br><span style="color:var(--muted)">Not a basic template layout anymore.</span></div>
+          </div>
+          <div class="detail-item">
+            <i class="bi bi-check2-circle"></i>
+            <div><strong>Fully responsive header</strong><br><span style="color:var(--muted)">Better navbar behavior on tablet and mobile.</span></div>
+          </div>
+          <div class="detail-item">
+            <i class="bi bi-check2-circle"></i>
+            <div><strong>Premium destination stack</strong><br><span style="color:var(--muted)">Travel visuals support the homepage story.</span></div>
+          </div>
+          <div class="detail-item">
+            <i class="bi bi-check2-circle"></i>
+            <div><strong>Higher conversion feel</strong><br><span style="color:var(--muted)">More polished CTAs and clearer search flow.</span></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" id="packages">
+    <div class="container">
+      <div style="text-align:center">
+        <div class="section-label"><i class="bi bi-grid"></i> curated packages</div>
+        <h2 class="section-title">Choose the trip that matches your mood</h2>
+        <p class="section-subtitle">
+          Search by vibe, category, or destination. Save your favorites, add them to cart, and continue with booking or checkout.
+        </p>
+      </div>
+
+      <div class="filters-wrap">
+        <div class="search-box">
+          <i class="bi bi-search"></i>
+          <input type="text" id="searchInput" placeholder="Search Bali, luxury, honeymoon, city..." />
+        </div>
+
+        <div class="filter-pills">
+          <button class="filter-btn active" data-filter="all">All</button>
+          <button class="filter-btn" data-filter="beach">Beach</button>
+          <button class="filter-btn" data-filter="adventure">Adventure</button>
+          <button class="filter-btn" data-filter="luxury">Luxury</button>
+          <button class="filter-btn" data-filter="honeymoon">Honeymoon</button>
+          <button class="filter-btn" data-filter="city">City</button>
+        </div>
+      </div>
+
+      <div class="package-grid" id="packageGrid"></div>
+    </div>
+  </section>
+
+  <section class="section" id="booking">
+    <div class="container dual-grid">
+      <div class="card form-card">
+        <div class="section-label"><i class="bi bi-calendar-check"></i> booking form</div>
+        <h3>Request a personalized trip plan</h3>
+        <p>Share your destination idea, travel timing, and traveler count to start a custom booking request.</p>
+
+        <form id="bookingForm">
+          <div class="field">
+            <label>Full name</label>
+            <input type="text" id="bookName" required>
+          </div>
+          <div class="field">
+            <label>Phone number</label>
+            <input type="tel" id="bookPhone" required>
+          </div>
+          <div class="field">
+            <label>Email address</label>
+            <input type="email" id="bookEmail" required>
+          </div>
+          <div class="field">
+            <label>Preferred destination</label>
+            <input type="text" id="bookDestination" required>
+          </div>
+          <div class="field">
+            <label>Travel date</label>
+            <input type="date" id="bookDate" required>
+          </div>
+          <div class="field">
+            <label>Number of travelers</label>
+            <select id="bookTravelers" required>
+              <option value="">Select travelers</option>
+              <option>1 Traveler</option>
+              <option>2 Travelers</option>
+              <option>3-4 Travelers</option>
+              <option>5+ Travelers</option>
+            </select>
+          </div>
+          <div class="field">
+            <label>Special notes</label>
+            <textarea id="bookNotes" placeholder="Visa, hotel type, honeymoon setup, sightseeing, etc."></textarea>
+          </div>
+
+          <button class="btn btn-primary" type="submit">Submit booking request</button>
+        </form>
+      </div>
+
+      <div class="card booking-visual">
+        <img src="https://images.unsplash.com/photo-1488646953014-85cb44e25828?auto=format&fit=crop&w=1600&q=80" alt="Travel">
+        <div class="booking-overlay">
+          <strong style="display:block;font-size:1.1rem;margin-bottom:6px;">Travel should feel effortless.</strong>
+          <span style="color:#4b5563;line-height:1.8;">
+            Plan a premium holiday with a cleaner booking flow, stronger visual storytelling, and faster action steps.
+          </span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" id="checkout">
+    <div class="container dual-grid">
+      <div class="card form-card">
+        <div class="section-label"><i class="bi bi-credit-card"></i> checkout</div>
+        <h3>Traveler details</h3>
+        <p>Fill in the core details and finalize your travel request with the selected trip packages.</p>
+
+        <form id="checkoutForm">
+          <div class="field">
+            <label>Full name</label>
+            <input type="text" id="checkoutName" required>
+          </div>
+          <div class="field">
+            <label>Phone number</label>
+            <input type="tel" id="checkoutPhone" required>
+          </div>
+          <div class="field">
+            <label>Email address</label>
+            <input type="email" id="checkoutEmail" required>
+          </div>
+          <div class="field">
+            <label>Pickup city</label>
+            <input type="text" id="checkoutCity" required>
+          </div>
+          <div class="field">
+            <label>Payment preference</label>
+            <select id="paymentMethod" required>
+              <option value="">Select payment method</option>
+              <option value="Advance payment">Advance payment</option>
+              <option value="UPI">UPI</option>
+              <option value="Bank transfer">Bank transfer</option>
+            </select>
+          </div>
+          <div class="field">
+            <label>Additional notes</label>
+            <textarea id="checkoutNotes" placeholder="Special requests or travel preferences..."></textarea>
+          </div>
+
+          <button type="submit" class="btn btn-primary">Place travel order</button>
+        </form>
+      </div>
+
+      <div class="card form-card">
+        <div class="section-label"><i class="bi bi-receipt"></i> order summary</div>
+        <h3>Trip summary</h3>
+        <p>Your selected packages appear here with service fee, tax, and grand total.</p>
+
+        <div class="summary-list" id="checkoutItems"></div>
+
+        <div class="totals">
+          <div class="line"><span>Package total</span><strong id="checkoutSubtotal">₹0</strong></div>
+          <div class="line"><span>Service fee</span><strong id="checkoutService">₹1,500</strong></div>
+          <div class="line"><span>Tax (5%)</span><strong id="checkoutTax">₹0</strong></div>
+          <div class="line total"><span>Grand total</span><span id="checkoutTotal">₹1,500</span></div>
+
+          <button class="btn btn-secondary" style="width:100%;margin-top:12px" onclick="sendWhatsAppBooking()">
+            <i class="bi bi-whatsapp"></i> Send on WhatsApp
+          </button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container">
+      <div style="text-align:center">
+        <div class="section-label"><i class="bi bi-images"></i> destination gallery</div>
+        <h2 class="section-title">Explore Dubai through premium visual stories</h2>
+        <p class="section-subtitle">
+          Ek hi destination ki multiple premium images ek elegant slider card ke andar — taaki user same place ko different moods me explore kar sake.
+        </p>
+      </div>
+
+      <div class="destination-story-wrap">
+        <div class="destination-story-card">
+          <div class="story-slider" id="storySlider">
+            <div class="story-slide active">
+              <img src="https://images.unsplash.com/photo-1512453979798-5ea266f8880c?auto=format&fit=crop&w=1600&q=80" alt="Dubai skyline view">
+            </div>
+            <div class="story-slide">
+              <img src="https://images.unsplash.com/photo-1526495124232-a04e1849168c?auto=format&fit=crop&w=1600&q=80" alt="Dubai luxury city scene">
+            </div>
+            <div class="story-slide">
+              <img src="https://images.unsplash.com/photo-1546412414-8035e1776c9a?auto=format&fit=crop&w=1600&q=80" alt="Dubai city architecture">
+            </div>
+            <div class="story-slide">
+              <img src="https://images.unsplash.com/photo-1518684079-3c830dcef090?auto=format&fit=crop&w=1600&q=80" alt="Dubai desert and city luxury">
+            </div>
+            <div class="story-slide">
+              <img src="https://images.unsplash.com/photo-1504274066651-8d31a536b11a?auto=format&fit=crop&w=1600&q=80" alt="Dubai night lights">
+            </div>
+          </div>
+
+          <div class="story-top-badge">
+            <i class="bi bi-geo-alt-fill"></i> Featured destination • Dubai
+          </div>
+
+          <div class="story-content">
+            <div class="story-content-left">
+              <div class="story-kicker"><i class="bi bi-stars"></i> Luxury city escape</div>
+              <h3 class="story-title">Five premium views of Dubai in one immersive card</h3>
+              <p class="story-desc">
+                Skyline, luxury architecture, desert contrast, night lights, and premium city energy —
+                sab kuch ek hi interactive destination card ke andar. User arrows ya dots se easily photos switch kar sakta hai.
+              </p>
+
+              <div class="story-meta">
+                <div class="meta-pill"><i class="bi bi-camera"></i> 5 handpicked photos</div>
+                <div class="meta-pill"><i class="bi bi-buildings"></i> Famous travel destination</div>
+                <div class="meta-pill"><i class="bi bi-arrow-left-right"></i> Slide interaction</div>
+              </div>
+            </div>
+
+            <div class="story-controls">
+              <button class="story-nav-btn" onclick="changeStorySlide(-1)" aria-label="Previous image">
+                <i class="bi bi-arrow-left"></i>
+              </button>
+
+              <div class="story-dots">
+                <button class="story-dot active" onclick="goToStorySlide(0)"></button>
+                <button class="story-dot" onclick="goToStorySlide(1)"></button>
+                <button class="story-dot" onclick="goToStorySlide(2)"></button>
+                <button class="story-dot" onclick="goToStorySlide(3)"></button>
+                <button class="story-dot" onclick="goToStorySlide(4)"></button>
+              </div>
+
+              <button class="story-nav-btn" onclick="changeStorySlide(1)" aria-label="Next image">
+                <i class="bi bi-arrow-right"></i>
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <div class="story-thumbs">
+          <div class="story-thumb active" onclick="goToStorySlide(0)">
+            <img src="https://images.unsplash.com/photo-1512453979798-5ea266f8880c?auto=format&fit=crop&w=700&q=80" alt="">
+            <div class="story-thumb-label">Skyline</div>
+          </div>
+          <div class="story-thumb" onclick="goToStorySlide(1)">
+            <img src="https://images.unsplash.com/photo-1526495124232-a04e1849168c?auto=format&fit=crop&w=700&q=80" alt="">
+            <div class="story-thumb-label">Luxury</div>
+          </div>
+          <div class="story-thumb" onclick="goToStorySlide(2)">
+            <img src="https://images.unsplash.com/photo-1546412414-8035e1776c9a?auto=format&fit=crop&w=700&q=80" alt="">
+            <div class="story-thumb-label">Architecture</div>
+          </div>
+          <div class="story-thumb" onclick="goToStorySlide(3)">
+            <img src="https://images.unsplash.com/photo-1518684079-3c830dcef090?auto=format&fit=crop&w=700&q=80" alt="">
+            <div class="story-thumb-label">Desert vibe</div>
+          </div>
+          <div class="story-thumb" onclick="goToStorySlide(4)">
+            <img src="https://images.unsplash.com/photo-1504274066651-8d31a536b11a?auto=format&fit=crop&w=700&q=80" alt="">
+            <div class="story-thumb-label">Night lights</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container">
+      <div style="text-align:center">
+        <div class="section-label"><i class="bi bi-chat-quote"></i> testimonials</div>
+        <h2 class="section-title">What travelers say about the experience</h2>
+        <p class="section-subtitle">
+          Better spacing, cleaner cards, and a more premium testimonial section to support the refreshed UI.
+        </p>
+      </div>
+
+      <div class="testimonials">
+        <div class="card testimonial-card">
+          <div class="testimonial-stars">★★★★★</div>
+          <p>
+            This version looks much more premium and modern. The homepage feels like a real travel brand website now.
+          </p>
+          <div class="user">
+            <img src="https://randomuser.me/api/portraits/women/44.jpg" alt="">
+            <div><strong>Riya Kapoor</strong><br><span style="color:var(--muted)">Travel creator</span></div>
+          </div>
+        </div>
+
+        <div class="card testimonial-card">
+          <div class="testimonial-stars">★★★★★</div>
+          <p>
+            The hero section instantly grabs attention. It feels more premium, more branded, and much more engaging.
+          </p>
+          <div class="user">
+            <img src="https://randomuser.me/api/portraits/men/32.jpg" alt="">
+            <div><strong>Arjun Mehta</strong><br><span style="color:var(--muted)">Frequent traveler</span></div>
+          </div>
+        </div>
+
+        <div class="card testimonial-card">
+          <div class="testimonial-stars">★★★★★</div>
+          <p>
+            The responsive menu and the new home section make the website feel polished on both desktop and mobile.
+          </p>
+          <div class="user">
+            <img src="https://randomuser.me/api/portraits/women/68.jpg" alt="">
+            <div><strong>Simran Kaur</strong><br><span style="color:var(--muted)">Lifestyle blogger</span></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <footer class="footer">
+    <div class="container footer-inner">
+      <div>© 2026 <strong style="color:var(--primary-2)">Roamly Travel</strong> • premium travel journeys</div>
+      <div style="display:flex;gap:14px;font-size:1.1rem;">
+        <a href="#"><i class="bi bi-instagram"></i></a>
+        <a href="#"><i class="bi bi-facebook"></i></a>
+        <a href="#"><i class="bi bi-twitter-x"></i></a>
+        <a href="#"><i class="bi bi-youtube"></i></a>
+      </div>
+    </div>
+  </footer>
+
+  <button class="wa-btn" onclick="sendWhatsAppBooking()" title="WhatsApp booking">
+    <i class="bi bi-whatsapp"></i>
+  </button>
+
+  <button class="back-top" id="backTop" onclick="window.scrollTo({top:0,behavior:'smooth'})">
+    <i class="bi bi-arrow-up"></i>
+  </button>
+
+  <div class="overlay" id="overlay" onclick="closeAllPanels()"></div>
+
+  <div class="side-panel" id="wishlistPanel">
+    <div class="panel-header">
+      <strong>Wishlist</strong>
+      <button class="panel-close" onclick="closeAllPanels()"><i class="bi bi-x-lg"></i></button>
+    </div>
+    <div class="panel-body" id="wishlistItems"></div>
+  </div>
+
+  <div class="side-panel" id="cartPanel">
+    <div class="panel-header">
+      <strong>Trip cart</strong>
+      <button class="panel-close" onclick="closeAllPanels()"><i class="bi bi-x-lg"></i></button>
+    </div>
+    <div class="panel-body">
+      <div id="cartItems"></div>
+
+      <div class="totals" style="margin-top:20px">
+        <div class="line"><span>Package total</span><strong id="cartSubtotal">₹0</strong></div>
+        <div class="line"><span>Service fee</span><strong>₹1,500</strong></div>
+        <div class="line total"><span>Total</span><span id="cartTotal">₹1,500</span></div>
+
+        <button class="btn btn-primary" style="width:100%;margin-top:10px" onclick="scrollToSection('checkout'); closeAllPanels();">
+          Proceed to checkout
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <div class="modal" id="authModal">
+    <div class="modal-box">
+      <div class="modal-tabs">
+        <button class="modal-tab active" id="loginTabBtn" onclick="switchAuthTab('login')">Login</button>
+        <button class="modal-tab" id="signupTabBtn" onclick="switchAuthTab('signup')">Sign up</button>
+      </div>
+
+      <div class="modal-content">
+        <form id="loginForm">
+          <div class="field">
+            <label>Email address</label>
+            <input type="email" required>
+          </div>
+          <div class="field">
+            <label>Password</label>
+            <input type="password" required>
+          </div>
+          <button class="btn btn-primary" type="submit" style="width:100%">Login</button>
+        </form>
+
+        <form id="signupForm" class="hidden">
+          <div class="field">
+            <label>Full name</label>
+            <input type="text" required>
+          </div>
+          <div class="field">
+            <label>Email address</label>
+            <input type="email" required>
+          </div>
+          <div class="field">
+            <label>Password</label>
+            <input type="password" required>
+          </div>
+          <button class="btn btn-primary" type="submit" style="width:100%">Create account</button>
+        </form>
+
+        <button class="btn btn-secondary" style="width:100%;margin-top:10px" onclick="closeAuthModal()">Close</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="toast" id="toast"></div>
+
+  <script>
+    const body = document.body;
+    const preloader = document.getElementById('preloader');
+    const header = document.getElementById('header');
+    const backTop = document.getElementById('backTop');
+    const overlay = document.getElementById('overlay');
+    const themeToggle = document.getElementById('themeToggle');
+    const menuToggle = document.getElementById('menuToggle');
+    const mobileMenu = document.getElementById('mobileMenu');
+
+    let currentFilter = 'all';
+    let wishlist = [];
+    let cart = [];
+
+    let packages = [
+      {
+        id:1,
+        title:'Bali Escape',
+        price:45999,
+        category:'beach',
+        image:'https://images.unsplash.com/photo-1537996194471-e657df975ab4?auto=format&fit=crop&w=1400&q=80',
+        duration:'5 Days / 4 Nights',
+        desc:'A tropical beach holiday with curated resort stay, island views, and premium leisure planning.',
+        badge:'Popular',
+        nights:'4 nights',
+        rating:'4.9',
+        type:'Beach'
+      },
+      {
+        id:2,
+        title:'Dubai Luxe',
+        price:68999,
+        category:'luxury',
+        image:'https://images.unsplash.com/photo-1512453979798-5ea266f8880c?auto=format&fit=crop&w=1400&q=80',
+        duration:'4 Days / 3 Nights',
+        desc:'Luxury hotel stay, skyline experiences, desert safari, shopping, and premium city comfort.',
+        badge:'Luxury',
+        nights:'3 nights',
+        rating:'4.9',
+        type:'Luxury'
+      },
+      {
+        id:3,
+        title:'Manali Rush',
+        price:24999,
+        category:'adventure',
+        image:'https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?auto=format&fit=crop&w=1400&q=80',
+        duration:'6 Days / 5 Nights',
+        desc:'Adventure vibes, scenic roads, snowy points, local stays, and a beautiful mountain journey.',
+        badge:'Adventure',
+        nights:'5 nights',
+        rating:'4.8',
+        type:'Adventure'
+      },
+      {
+        id:4,
+        title:'Maldives Honeymoon',
+        price:89999,
+        category:'honeymoon',
+        image:'https://images.unsplash.com/photo-1573843981267-be1999ff37cd?auto=format&fit=crop&w=1400&q=80',
+        duration:'5 Days / 4 Nights',
+        desc:'Romantic water villas, private dinners, premium couple experiences, and ocean serenity.',
+        badge:'Romantic',
+        nights:'4 nights',
+        rating:'5.0',
+        type:'Honeymoon'
+      },
+      {
+        id:5,
+        title:'Singapore City',
+        price:55999,
+        category:'city',
+        image:'https://images.unsplash.com/photo-1525625293386-3f8f99389edd?auto=format&fit=crop&w=1400&q=80',
+        duration:'5 Days / 4 Nights',
+        desc:'Modern city attractions, skyline views, premium stays, and stylish urban travel vibes.',
+        badge:'Urban',
+        nights:'4 nights',
+        rating:'4.8',
+        type:'City'
+      },
+      {
+        id:6,
+        title:'Goa Pulse',
+        price:19999,
+        category:'beach',
+        image:'https://images.unsplash.com/photo-1512343879784-a960bf40e7f2?auto=format&fit=crop&w=1400&q=80',
+        duration:'4 Days / 3 Nights',
+        desc:'A fun beach-side package with resort comfort, nightlife access, and relaxed coastal mood.',
+        badge:'Budget favorite',
+        nights:'3 nights',
+        rating:'4.7',
+        type:'Beach'
+      }
+    ];
+
+    window.addEventListener('load', () => {
+      setTimeout(() => preloader.classList.add('hide'), 700);
+    });
+
+    window.addEventListener('scroll', () => {
+      if(window.scrollY > 40) header.classList.add('scrolled');
+      else header.classList.remove('scrolled');
+
+      if(window.scrollY > 500) backTop.classList.add('show');
+      else backTop.classList.remove('show');
+    });
+
+    function closeMobileMenu(){
+      mobileMenu.classList.remove('show');
+      menuToggle.innerHTML = '<i class="bi bi-list"></i>';
+    }
+
+    menuToggle.addEventListener('click', () => {
+      mobileMenu.classList.toggle('show');
+      menuToggle.innerHTML = mobileMenu.classList.contains('show')
+        ? '<i class="bi bi-x-lg"></i>'
+        : '<i class="bi bi-list"></i>';
+    });
+
+    document.querySelectorAll('.mobile-menu a').forEach(link => {
+      link.addEventListener('click', closeMobileMenu);
+    });
+
+    themeToggle.addEventListener('click', () => {
+      body.classList.toggle('light');
+      themeToggle.innerHTML = body.classList.contains('light')
+        ? '<i class="bi bi-moon-stars-fill"></i>'
+        : '<i class="bi bi-sun-fill"></i>';
+    });
+
+    function scrollToSection(id){
+      const el = document.getElementById(id);
+      if(el) el.scrollIntoView({behavior:'smooth'});
+    }
+
+    const packageGrid = document.getElementById('packageGrid');
+    const searchInput = document.getElementById('searchInput');
+
+    function renderPackages(){
+      const search = searchInput.value.toLowerCase().trim();
+
+      const filtered = packages.filter(item => {
+        const matchFilter = currentFilter === 'all' || item.category === currentFilter;
+        const matchSearch =
+          item.title.toLowerCase().includes(search) ||
+          item.desc.toLowerCase().includes(search) ||
+          item.category.toLowerCase().includes(search) ||
+          item.duration.toLowerCase().includes(search) ||
+          item.type.toLowerCase().includes(search);
+
+        return matchFilter && matchSearch;
+      });
+
+      if(!filtered.length){
+        packageGrid.innerHTML = `<div class="card" style="padding:30px;text-align:center;color:var(--muted);grid-column:1/-1;">No travel packages found.</div>`;
+        return;
+      }
+
+      packageGrid.innerHTML = filtered.map(item => `
+        <div class="card package-card">
+          <div class="package-top">
+            <img src="${item.image}" alt="${item.title}">
+            <div class="package-chip">${item.badge}</div>
+            <button class="wish-btn ${wishlist.some(w => w.id === item.id) ? 'active' : ''}" onclick="toggleWishlist(${item.id})">
+              <i class="bi bi-heart-fill"></i>
+            </button>
+            <div class="package-floating-title">
+              <h3>${item.title}</h3>
+              <span>${item.duration}</span>
+            </div>
+          </div>
+
+          <div class="package-body">
+            <div class="price-row">
+              <div>
+                <div class="price">₹${formatPrice(item.price)}</div>
+                <div class="per">per package</div>
+              </div>
+              <div class="section-label" style="margin:0">${item.type}</div>
+            </div>
+
+            <div class="package-desc">${item.desc}</div>
+
+            <div class="package-meta">
+              <div class="meta-box">
+                <strong>${item.nights}</strong>
+                stay
+              </div>
+              <div class="meta-box">
+                <strong>${item.rating}</strong>
+                rating
+              </div>
+              <div class="meta-box">
+                <strong>${capitalize(item.category)}</strong>
+                vibe
+              </div>
+            </div>
+
+            <div class="package-actions">
+              <button class="btn btn-secondary" onclick="toggleWishlist(${item.id})">
+                <i class="bi bi-heart"></i> Wishlist
+              </button>
+              <button class="btn btn-primary" onclick="addToCart(${item.id})">
+                <i class="bi bi-bag-plus"></i> Add trip
+              </button>
+            </div>
+          </div>
+        </div>
+      `).join('');
+    }
+
+    document.querySelectorAll('.filter-btn').forEach(btn => {
+      btn.addEventListener('click', function(){
+        document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+        this.classList.add('active');
+        currentFilter = this.dataset.filter;
+        renderPackages();
+      });
+    });
+
+    searchInput.addEventListener('input', renderPackages);
+
+    function toggleWishlist(id){
+      const exists = wishlist.find(item => item.id === id);
+      const pkg = packages.find(item => item.id === id);
+      if(!pkg) return;
+
+      if(exists){
+        wishlist = wishlist.filter(item => item.id !== id);
+        showToast('Removed from wishlist');
+      } else {
+        wishlist.push(pkg);
+        showToast('Added to wishlist');
+      }
+
+      updateWishlist();
+      renderPackages();
+    }
+
+    function updateWishlist(){
+      document.getElementById('wishlistCount').textContent = wishlist.length;
+      const wishlistItems = document.getElementById('wishlistItems');
+
+      if(!wishlist.length){
+        wishlistItems.innerHTML = `<div class="empty"><i class="bi bi-heart" style="font-size:28px"></i><br><br>Your wishlist is empty.</div>`;
+        return;
+      }
+
+      wishlistItems.innerHTML = wishlist.map(item => `
+        <div class="wish-item">
+          <img src="${item.image}" alt="${item.title}">
+          <div>
+            <strong>${item.title}</strong>
+            <div style="color:var(--muted);margin:5px 0 8px;">₹${formatPrice(item.price)}</div>
+            <div style="display:flex;gap:8px;flex-wrap:wrap;">
+              <button class="mini-btn mini-edit" onclick="addToCart(${item.id})">Add trip</button>
+              <button class="mini-btn mini-delete" onclick="toggleWishlist(${item.id})">Remove</button>
+            </div>
+          </div>
+        </div>
+      `).join('');
+    }
+
+    function addToCart(id){
+      const pkg = packages.find(item => item.id === id);
+      if(!pkg) return;
+
+      const exists = cart.find(item => item.id === id);
+      if(exists){
+        exists.qty += 1;
+      } else {
+        cart.push({...pkg, qty:1});
+      }
+
+      updateCart();
+      updateCheckoutSummary();
+      showToast('Trip added to cart');
+    }
+
+    function changeQty(id, type){
+      const item = cart.find(c => c.id === id);
+      if(!item) return;
+
+      if(type === 'plus'){
+        item.qty += 1;
+      } else {
+        item.qty -= 1;
+        if(item.qty <= 0){
+          cart = cart.filter(c => c.id !== id);
+        }
+      }
+
+      updateCart();
+      updateCheckoutSummary();
+    }
+
+    function updateCart(){
+      document.getElementById('cartCount').textContent = cart.reduce((sum, item) => sum + item.qty, 0);
+      const cartItems = document.getElementById('cartItems');
+
+      if(!cart.length){
+        cartItems.innerHTML = `<div class="empty"><i class="bi bi-bag-x" style="font-size:28px"></i><br><br>Your trip cart is empty.</div>`;
+      } else {
+        cartItems.innerHTML = cart.map(item => `
+          <div class="cart-item">
+            <img src="${item.image}" alt="${item.title}">
+            <div>
+              <strong>${item.title}</strong>
+              <div style="color:var(--muted);margin:4px 0;">₹${formatPrice(item.price)} each</div>
+              <div style="font-weight:800;color:var(--primary-2);">₹${formatPrice(item.price * item.qty)}</div>
+              <div class="qty-row">
+                <button class="qty-btn" onclick="changeQty(${item.id}, 'minus')">-</button>
+                <span>${item.qty}</span>
+                <button class="qty-btn" onclick="changeQty(${item.id}, 'plus')">+</button>
+              </div>
+            </div>
+          </div>
+        `).join('');
+      }
+
+      const subtotal = cart.reduce((sum, item) => sum + (item.price * item.qty), 0);
+      const total = subtotal + 1500;
+
+      document.getElementById('cartSubtotal').textContent = `₹${formatPrice(subtotal)}`;
+      document.getElementById('cartTotal').textContent = `₹${formatPrice(total)}`;
+    }
+
+    function updateCheckoutSummary(){
+      const checkoutItems = document.getElementById('checkoutItems');
+
+      if(!cart.length){
+        checkoutItems.innerHTML = `<div class="empty">No packages selected yet.</div>`;
+      } else {
+        checkoutItems.innerHTML = cart.map(item => `
+          <div class="item">
+            <div>
+              <strong>${item.title}</strong><br>
+              <span style="color:var(--muted)">Qty: ${item.qty} × ₹${formatPrice(item.price)}</span>
+            </div>
+            <strong>₹${formatPrice(item.qty * item.price)}</strong>
+          </div>
+        `).join('');
+      }
+
+      const subtotal = cart.reduce((sum, item) => sum + (item.price * item.qty), 0);
+      const service = 1500;
+      const tax = Math.round(subtotal * 0.05);
+      const total = subtotal + service + tax;
+
+      document.getElementById('checkoutSubtotal').textContent = `₹${formatPrice(subtotal)}`;
+      document.getElementById('checkoutService').textContent = `₹${formatPrice(service)}`;
+      document.getElementById('checkoutTax').textContent = `₹${formatPrice(tax)}`;
+      document.getElementById('checkoutTotal').textContent = `₹${formatPrice(total)}`;
+    }
+
+    function openPanel(id){
+      closeAllPanels();
+      const panel = document.getElementById(id);
+      if(panel){
+        panel.classList.add('show');
+        overlay.classList.add('show');
+      }
+    }
+
+    function closeAllPanels(){
+      document.querySelectorAll('.side-panel').forEach(panel => panel.classList.remove('show'));
+      overlay.classList.remove('show');
+    }
+
+    const authModal = document.getElementById('authModal');
+
+    function openAuthModal(){
+      authModal.classList.add('show');
+      closeMobileMenu();
+    }
+
+    function closeAuthModal(){
+      authModal.classList.remove('show');
+    }
+
+    authModal.addEventListener('click', (e) => {
+      if(e.target === authModal) closeAuthModal();
+    });
+
+    function switchAuthTab(type){
+      const loginBtn = document.getElementById('loginTabBtn');
+      const signupBtn = document.getElementById('signupTabBtn');
+      const loginForm = document.getElementById('loginForm');
+      const signupForm = document.getElementById('signupForm');
+
+      if(type === 'login'){
+        loginBtn.classList.add('active');
+        signupBtn.classList.remove('active');
+        loginForm.classList.remove('hidden');
+        signupForm.classList.add('hidden');
+      } else {
+        signupBtn.classList.add('active');
+        loginBtn.classList.remove('active');
+        signupForm.classList.remove('hidden');
+        loginForm.classList.add('hidden');
+      }
+    }
+
+    document.getElementById('loginForm').addEventListener('submit', function(e){
+      e.preventDefault();
+      showToast('Login successful');
+      closeAuthModal();
+      this.reset();
+    });
+
+    document.getElementById('signupForm').addEventListener('submit', function(e){
+      e.preventDefault();
+      showToast('Account created successfully');
+      closeAuthModal();
+      this.reset();
+    });
+
+    document.getElementById('bookingForm').addEventListener('submit', function(e){
+      e.preventDefault();
+      showToast('Booking request submitted successfully');
+      this.reset();
+    });
+
+    document.getElementById('checkoutForm').addEventListener('submit', function(e){
+      e.preventDefault();
+
+      if(!cart.length){
+        showToast('Please add packages first');
+        return;
+      }
+
+      const name = document.getElementById('checkoutName').value.trim();
+      const phone = document.getElementById('checkoutPhone').value.trim();
+      const email = document.getElementById('checkoutEmail').value.trim();
+      const city = document.getElementById('checkoutCity').value.trim();
+      const payment = document.getElementById('paymentMethod').value;
+
+      if(!name || !phone || !email || !city || !payment){
+        showToast('Please fill all checkout fields');
+        return;
+      }
+
+      showToast('Travel order placed successfully');
+      this.reset();
+      cart = [];
+      updateCart();
+      updateCheckoutSummary();
+    });
+
+    function sendWhatsAppBooking(){
+      let msg = 'Hello Roamly Travel,%0A%0AI want to inquire/book these packages:%0A';
+
+      if(!cart.length){
+        msg += '%0A(No package selected yet)';
+      } else {
+        cart.forEach(item => {
+          msg += `- ${item.title} x ${item.qty} = ₹${formatPrice(item.price * item.qty)}%0A`;
+        });
+
+        const subtotal = cart.reduce((sum, item) => sum + (item.price * item.qty), 0);
+        const service = 1500;
+        const tax = Math.round(subtotal * 0.05);
+        const total = subtotal + service + tax;
+
+        msg += `%0APackage Total: ₹${formatPrice(subtotal)}%0AService Fee: ₹${formatPrice(service)}%0ATax: ₹${formatPrice(tax)}%0AGrand Total: ₹${formatPrice(total)}`;
+      }
+
+      const whatsappNumber = '919999999999';
+      window.open(`https://wa.me/${whatsappNumber}?text=${msg}`, '_blank');
+    }
+
+    let storyCurrentIndex = 0;
+    let storyAutoSlide;
+
+    function updateStorySlider(){
+      const slides = document.querySelectorAll('.story-slide');
+      const dots = document.querySelectorAll('.story-dot');
+      const thumbs = document.querySelectorAll('.story-thumb');
+
+      slides.forEach((slide, index) => {
+        slide.classList.toggle('active', index === storyCurrentIndex);
+      });
+
+      dots.forEach((dot, index) => {
+        dot.classList.toggle('active', index === storyCurrentIndex);
+      });
+
+      thumbs.forEach((thumb, index) => {
+        thumb.classList.toggle('active', index === storyCurrentIndex);
+      });
+    }
+
+    function goToStorySlide(index){
+      const slides = document.querySelectorAll('.story-slide');
+      if(!slides.length) return;
+
+      storyCurrentIndex = index;
+      if(storyCurrentIndex < 0) storyCurrentIndex = slides.length - 1;
+      if(storyCurrentIndex >= slides.length) storyCurrentIndex = 0;
+
+      updateStorySlider();
+      restartStoryAutoSlide();
+    }
+
+    function changeStorySlide(step){
+      const slides = document.querySelectorAll('.story-slide');
+      if(!slides.length) return;
+
+      storyCurrentIndex += step;
+
+      if(storyCurrentIndex < 0) storyCurrentIndex = slides.length - 1;
+      if(storyCurrentIndex >= slides.length) storyCurrentIndex = 0;
+
+      updateStorySlider();
+      restartStoryAutoSlide();
+    }
+
+    function startStoryAutoSlide(){
+      clearInterval(storyAutoSlide);
+      storyAutoSlide = setInterval(() => {
+        const slides = document.querySelectorAll('.story-slide');
+        if(!slides.length) return;
+        storyCurrentIndex++;
+        if(storyCurrentIndex >= slides.length) storyCurrentIndex = 0;
+        updateStorySlider();
+      }, 4500);
+    }
+
+    function restartStoryAutoSlide(){
+      clearInterval(storyAutoSlide);
+      startStoryAutoSlide();
+    }
+
+    function capitalize(text){
+      return text.charAt(0).toUpperCase() + text.slice(1);
+    }
+
+    function formatPrice(value){
+      return Number(value).toLocaleString('en-IN');
+    }
+
+    function showToast(message){
+      const toast = document.getElementById('toast');
+      toast.textContent = message;
+      toast.classList.add('show');
+      clearTimeout(window.toastTimer);
+      window.toastTimer = setTimeout(() => {
+        toast.classList.remove('show');
+      }, 2200);
+    }
+
+    renderPackages();
+    updateWishlist();
+    updateCart();
+    updateCheckoutSummary();
+    updateStorySlider();
+    startStoryAutoSlide();
+  </script>
+</body>
+</html>
